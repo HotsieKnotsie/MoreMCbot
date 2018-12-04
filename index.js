@@ -118,40 +118,11 @@ bot.on("message", async message => {
 
     if (command === `${prefix}ban`) {
 
+        if (!message.member.roles.some(r => [`${InfinityTeam}`].includes(r.name))) return message.channel.send("Je kunt dit niet").then(msg => { msg.delete(3000) }).then(message.delete());
         let bUser = message.guild.member(message.mentions.users.first() || message.guild.members.get(arguments[0]));
         if (!bUser) return message.channel.send("Kan gebruiker niet vinden.");
-        let bReason = arguments.join(" ").slice(22);
-        if (!message.member.hasPermission("MANAGE_MESSAGES")) return message.channel.send("Je kunt dit niet");
         if (bUser.hasPermission("MANAGE_MESSAGES")) return message.channel.send("Je kunt die gebruiker niet bannen");
-
-        let banEmbed = new discord.RichEmbed()
-            .setDescription("Ban");
-
-        let banChannel = message.guild.channels.find("name", "mod-logs");
-        if (!banChannel) return message.channel.send("Kan het channel niet vinden");
-
         message.guild.member(bUser).ban(bReason);
-        banChannel.send(banEmbed);
-
-        return;
-    }
-    
-        if (command === `${prefix}unban`) {
-
-        let bUser = message.guild.member(message.mentions.users.first() || message.guild.members.get(arguments[0]));
-        if (!bUser) return message.channel.send("Kan gebruiker niet vinden.");
-        let bReason = arguments.join(" ").slice(22);
-        if (!message.member.hasPermission("MANAGE_MESSAGES")) return message.channel.send("Je kunt dit niet");
-        if (bUser.hasPermission("MANAGE_MESSAGES")) return message.channel.send("Je kunt die gebruiker niet unbannen");
-
-        let unbanEmbed = new discord.RichEmbed()
-            .setDescription("unBan");
-
-        let unbanChannel = message.guild.channels.find("name", "mod-logs");
-        if (!unbanChannel) return message.channel.send("Kan het channel niet vinden");
-
-        message.guild.member(bUser).unban(bReason);
-        unbanChannel.send(unbanEmbed);
 
         return;
     }
