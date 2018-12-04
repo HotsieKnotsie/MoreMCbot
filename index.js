@@ -87,31 +87,11 @@ bot.on("message", async message => {
 
     if (command === `${prefix}kick`) {
 
-
+        if (!message.member.roles.some(r => [`${InfinityTeam}`].includes(r.name))) return message.channel.send("Je kunt dit niet").then(msg => { msg.delete(3000) }).then(message.delete());
         let kUser = message.guild.member(message.mentions.users.first() || message.guild.members.get(arguments[0]));
         if (!kUser) return message.channel.send("Kan gebruiker niet vinden.");
-        let kReason = arguments.join(" ").slice(22);
-
-        let nopermkembed = new Discord.RichEmbed()
-            .setDescription("_ _", "Je kunt dit niet.")
-            .setColor("#ec4040");
-
-        if (!message.member.hasPermission("MANAGE_MESSAGES")) return message.channel.send(nopermkembed);
-
-        let nokickembed = new Discord.RichEmbed()
-            .setDescription("_ _", "Je kunt die gebruiker niet kicken.")
-            .setColor("#ec4040");
-
-        if (kUser.hasPermission("MANAGE_MESSAGES")) return message.channel.send(nokickembed);
-
-        let kickEmbed = new discord.RichEmbed()
-            .setDescription("Kick");
-
-        let kickChannel = message.guild.channels.find("name", "mod-logs");
-        if (!kickChannel) return message.channel.send("Kan het channel niet vinden");
-
+        if (bUser.hasPermission("MANAGE_MESSAGES")) return message.channel.send("Je kunt die gebruiker niet kicken");
         message.guild.member(kUser).kick(kReason);
-        kickChannel.send(kickEmbed);
 
         return;
     }
