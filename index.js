@@ -90,8 +90,8 @@ bot.on("message", async message => {
         if (!message.member.roles.some(r => [`${InfinityTeam}`].includes(r.name))) return message.channel.send("Je kunt dit niet").then(msg => { msg.delete(3000) }).then(message.delete());
         let kUser = message.guild.member(message.mentions.users.first() || message.guild.members.get(arguments[0]));
         if (!kUser) return message.channel.send("Kan gebruiker niet vinden.");
-        if (bUser.hasPermission("MANAGE_MESSAGES")) return message.channel.send("Je kunt die gebruiker niet kicken");
-        message.guild.member(kUser).kick(kReason);
+        if (kUser.hasPermission("MANAGE_MESSAGES")) return message.channel.send("Je kunt die gebruiker niet kicken");
+        message.guild.member(kUser).ban(bReason);
 
         return;
     }
