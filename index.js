@@ -113,7 +113,7 @@ bot.on("message", async message => {
         let toMute = message.guild.member(message.mentions.users.first()) || message.guild.members.get(arguments[0]);
         if(!toMute) return message.channel.sendMessage("Kan gebruiker niet vinden.");
         
-        let role = message.guild.roles.find(r => r.name === "Muted");
+        var role = message.guild.roles.find("name", "Muted");
         
         if(toMute.roles.has(role.id)) return message.channel.sendMessage("Deze gebruiker is al gemuted.");
         
