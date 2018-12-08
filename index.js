@@ -107,42 +107,15 @@ bot.on("message", async message => {
         return;
     }
 
-    if (command === `${prefix}tempmute`) {
-
-        let nopermtmembed = new discord.RichEmbed()
-            .setDescription("Je hebt de benodigde **→ Infinity Team** role nodig om dit command uit te voeren.")
-            .setColor("#ff8100");
-
+    if (command === `${prefix}mute`) {
         if (!message.member.roles.some(r => [`${Moderator}`].includes(r.name))) return message.channel.send("Je kunt dit niet").then(msg => { msg.delete(3000) }).then(message.delete());
-        let mUser = message.guild.member(message.mentions.users.first() || message.guild.members.get(arguments[0]));
-
-        let nouserembed = new discord.RichEmbed()
-            .setDescription("Kan gebruiker niet vinden.")
-            .setColor("#ff8100");
-
+        let mUser = message.guild.member(message.mentions.users.first() || message.guild.members.get(arguments[0]);
         if (!mUser) return message.channel.send("Kan gebruiker niet vinden").then(msg => { msg.delete(3000) }).then(message.delete());
+        if (mUser.hasPermission("MANAGE_MESSAGES")) return message.channel.send("Je kunt die gebruiker niet mute");
         var muteRole = message.guild.roles.find("name", "Muted");
-
-        let tijdembed = new discord.RichEmbed()
-            .setDescription("Type een tijd dat hij/zij niet mag praten")
-            .setColor("#ff8100");
-
-        let mutedembed = new discord.RichEmbed()
-            .setDescription(`${mUser} is gemuted voor ${muteTime}.`)
-            .setColor("#ff8100");
-
-        let unmutedembed = new discord.RichEmbed()
-            .setDescription(`${mUser} is geunmuted.`)
-            .setColor("#ff8100");
-
-        var muteTime = arguments[1];
-        if (!muteTime) return message.channel.send("Type een tijd dat hij/zei niet mag praten").then(msg => { msg.delete(3000) }).then(message.delete());
         await (mUser.addRole(muteRole.id));
-        message.channel.send(`${mUser} is gemuted voor ${muteTime}.`).then(msg => { msg.delete(3000) }).then(message.delete());
-        setTimeout(function () {
-            mUser.removeRole(muteRole.id);
-            message.channel.send(`${mUser} is geunmuted.`).then(msg => { msg.delete(3000) }).then(message.delete());
-        }, ms(muteTime));
+
+        return;
     }
 
     if (command === `${prefix}say`) {
