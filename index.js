@@ -110,7 +110,7 @@ bot.on("message", async message => {
     if (command === `${prefix}mute`) {
         if (!message.member.roles.some(r => [`${Moderator}`].includes(r.name))) return message.channel.send("Je kunt dit niet").then(msg => { msg.delete(3000) }).then(message.delete());
         let mUser = message.guild.member(message.mentions.users.first() || message.guild.members.get(arguments[0]));
-        if (!mUser) return message.channel.send("Kan gebruiker niet vinden").then(msg => { msg.delete(3000) }).then(message.delete());
+        if (!mUser) return message.channel.send("Kan gebruiker niet vinden.");
         if (mUser.hasPermission("MANAGE_MESSAGES")) return message.channel.send("Je kunt die gebruiker niet mute");
         (mUser.addRole("name", "Muted"));
 
