@@ -71,7 +71,7 @@ bot.on("message", async message => {
 
     var arguments = messageArray.slice(1);
 
-    var InfinityTeam = botConfig.InfinityTeam;
+    var Moderator = botConfig.Moderator;
 
     var msg = message.content.toLowerCase();
 
@@ -87,7 +87,7 @@ bot.on("message", async message => {
 
     if (command === `${prefix}kick`) {
 
-        if (!message.member.roles.some(r => [`${InfinityTeam}`].includes(r.name))) return message.channel.send("Je kunt dit niet").then(msg => { msg.delete(3000) }).then(message.delete());
+        if (!message.member.roles.some(r => [`${Moderator}`].includes(r.name))) return message.channel.send("Je kunt dit niet").then(msg => { msg.delete(3000) }).then(message.delete());
         let kUser = message.guild.member(message.mentions.users.first() || message.guild.members.get(arguments[0]));
         if (!kUser) return message.channel.send("Kan gebruiker niet vinden.");
         if (kUser.hasPermission("MANAGE_MESSAGES")) return message.channel.send("Je kunt die gebruiker niet kicken");
@@ -98,7 +98,7 @@ bot.on("message", async message => {
 
     if (command === `${prefix}ban`) {
 
-        if (!message.member.roles.some(r => [`${InfinityTeam}`].includes(r.name))) return message.channel.send("Je kunt dit niet").then(msg => { msg.delete(3000) }).then(message.delete());
+        if (!message.member.roles.some(r => [`${Moderator}`].includes(r.name))) return message.channel.send("Je kunt dit niet").then(msg => { msg.delete(3000) }).then(message.delete());
         let bUser = message.guild.member(message.mentions.users.first() || message.guild.members.get(arguments[0]));
         if (!bUser) return message.channel.send("Kan gebruiker niet vinden.");
         if (bUser.hasPermission("MANAGE_MESSAGES")) return message.channel.send("Je kunt die gebruiker niet bannen");
@@ -113,7 +113,7 @@ bot.on("message", async message => {
             .setDescription("Je hebt de benodigde **→ Infinity Team** role nodig om dit command uit te voeren.")
             .setColor("#ff8100");
 
-        if (!message.member.roles.some(r => [`${InfinityTeam}`].includes(r.name))) return message.channel.send("Je kunt dit niet").then(msg => { msg.delete(3000) }).then(message.delete());
+        if (!message.member.roles.some(r => [`${Moderator}`].includes(r.name))) return message.channel.send("Je kunt dit niet").then(msg => { msg.delete(3000) }).then(message.delete());
         let mUser = message.guild.member(message.mentions.users.first() || message.guild.members.get(arguments[0]));
 
         let nouserembed = new discord.RichEmbed()
@@ -146,7 +146,7 @@ bot.on("message", async message => {
     }
 
     if (command === `${prefix}say`) {
-        if (!message.member.roles.some(r => [`${InfinityTeam}`].includes(r.name)))
+        if (!message.member.roles.some(r => [`${Moderator}`].includes(r.name)))
             return message.channel.send(({
                 embed: {
                     color: 0xec4040,
@@ -166,7 +166,7 @@ bot.on("message", async message => {
     }
 
     if (command === `${prefix}message`) {
-        if (!message.member.roles.some(r => [`${InfinityTeam}`].includes(r.name)))
+        if (!message.member.roles.some(r => [`${Moderator}`].includes(r.name)))
             return message.channel.send(({
                 embed: {
                     color: 0xec4040,
