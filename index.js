@@ -112,8 +112,7 @@ bot.on("message", async message => {
         let mUser = message.guild.member(message.mentions.users.first() || message.guild.members.get(arguments[0]));
         if (!mUser) return message.channel.send("Kan gebruiker niet vinden").then(msg => { msg.delete(3000) }).then(message.delete());
         if (mUser.hasPermission("MANAGE_MESSAGES")) return message.channel.send("Je kunt die gebruiker niet mute");
-        var muteRole = message.guild.roles.find("name", "Muted");
-        await (mUser.addRole(muteRole.id));
+        (mUser.addRole("name", "Muted"));
 
         return;
     }
