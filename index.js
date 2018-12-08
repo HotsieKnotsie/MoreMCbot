@@ -7,7 +7,7 @@ bot.commands = new discord.Collection();
 
 bot.on("ready", async () => {
 
-    bot.user.setActivity('infinitely high in the sky', { type: 'WATCHING' });
+    bot.user.setActivity('Op MoreMC', { type: 'Playing' });
     console.log(`${bot.user.username} is online!`);
 
 });
