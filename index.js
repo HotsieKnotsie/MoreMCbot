@@ -107,6 +107,17 @@ bot.on("message", async message => {
         return;
     }
 
+        if (command === `${prefix}unban`) {
+
+        if (!message.member.roles.some(r => [`${Moderator}`].includes(r.name))) return message.channel.send("Je kunt dit niet").then(msg => { msg.delete(3000) }).then(message.delete());
+        let bUser = message.guild.member(message.mentions.users.first() || message.guild.members.get(arguments[0]));
+        if (!bUser) return message.channel.send("Kan gebruiker niet vinden.");
+        if (bUser.hasPermission("MANAGE_MESSAGES")) return message.channel.send("Je kunt die gebruiker niet unbannen");
+        message.guild.member(bUser).unban();
+
+        return;
+    }
+    
     if (command === `${prefix}mute`) {
         if (!message.member.roles.some(r => [`${Moderator}`].includes(r.name))) return message.channel.send("Je kunt dit niet").then(msg => { msg.delete(3000) }).then(message.delete());
         
@@ -119,6 +130,20 @@ bot.on("message", async message => {
         
         await toMute.addRole(role);
         message.channel.sendMessage("Deze gebruiker is gemuted."); 
+
+        return;
+    }
+    
+        if (command === `${prefix}mute`) {
+        if (!message.member.roles.some(r => [`${Moderator}`].includes(r.name))) return message.channel.send("Je kunt dit niet").then(msg => { msg.delete(3000) }).then(message.delete());
+        
+        let tounMute = message.guild.member(message.mentions.users.first()) || message.guild.members.get(arguments[0]);
+        if(!tounMute) return message.channel.sendMessage("Kan gebruiker niet vinden.");
+        
+        var role = message.guild.roles.find("name", "Muted");
+        
+        await tounMute.removeRole(role);
+        message.channel.sendMessage("Deze gebruiker is geunmuted."); 
 
         return;
     }
